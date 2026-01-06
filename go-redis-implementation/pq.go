@@ -1,4 +1,3 @@
-//pq.go
 package main
 
 import (

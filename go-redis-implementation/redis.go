@@ -1,4 +1,3 @@
-//redis.go
 package main
 
 import (
