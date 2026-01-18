@@ -29,7 +29,13 @@ func main() {
 		if !ok {
 			POSTSAPI_URL = "http://localhost:7001"
 		}
-		resp, err := http.Get(POSTSAPI_URL + "/topPosts?limit=5")
+		limit := ctx.Query("limit")
+		if limit == ""{
+			ctx.JSON(http.StatusBadRequest,gin.H{
+				"error":"limit not set in query param",
+			})
+		}
+		resp, err := http.Get(POSTSAPI_URL + "/topPosts?limit=" + limit)
 		if err != nil {
 			ctx.JSON(http.StatusServiceUnavailable, gin.H{
 				"error": "invalid response from posts service",
@@ -43,7 +49,7 @@ func main() {
 		if err1 != nil {
 			fmt.Println("Error parsing json: ", err1)
 			ctx.JSON(http.StatusInternalServerError, gin.H{
-				"error": err1,
+				"error": err1.Error(),
 			})
 			return
 		}

@@ -57,7 +57,11 @@ func main(){
 		// 	return
 		// }
 		limit := ctx.Query("limit")
-
+		if limit == ""{
+			ctx.JSON(http.StatusBadRequest,gin.H{
+				"error":"limit not set in query param",
+			})
+		}
 		resp,err := http.Get(PROFILESAPI_URL + "/profiles/similar?email="+email+"&limit="+limit)
 
 		if err != nil {
@@ -71,7 +75,7 @@ func main(){
 		err1 := json.NewDecoder(resp.Body).Decode(&similarProfiles)
 		if err1 != nil {
 			ctx.JSON(http.StatusInternalServerError,gin.H{
-				"error":err1,
+				"error":err1.Error(),
 			})
 			return
 		}

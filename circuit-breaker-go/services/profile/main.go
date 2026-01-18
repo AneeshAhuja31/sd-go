@@ -50,14 +50,14 @@ func main(){
 		num_limit,err := strconv.Atoi(limit)
 		if err != nil {
 			ctx.JSON(400, gin.H{
-				"error":err,
+				"error":err.Error(),
 			})
 			return
 		}
 		similarUsers, err := fetchProfilesByHobbies(db,userProfile.Hobbies,email, num_limit)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError,gin.H{
-				"error":err,
+				"error":err.Error(),
 			})
 			return
 		}

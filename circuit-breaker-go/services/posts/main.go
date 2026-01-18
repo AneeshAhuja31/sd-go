@@ -32,12 +32,15 @@ func main(){
 		num_limit,err := strconv.Atoi(limit)
 		if err != nil{
 			fmt.Println("Invalid (non interger) character in limit url query: ",err)
+			ctx.JSON(http.StatusBadRequest,gin.H{
+				"error":err.Error(),
+			})
 			return
 		}
 		trendingposts, err := fetchTopPosts(db,num_limit)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError,gin.H{
-				"error":err,
+				"error":err.Error(),
 			})
 			return
 		}
