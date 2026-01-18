@@ -32,7 +32,7 @@ func fetchPostsbyEmail(db*sql.DB,email string)([]post,error){
 		fmt.Println("Error while querying, ",err)
 		return []post{},err
 	}
-	var posts [] post
+	posts := []post{}
 	for rows.Next(){
 		var curr_post post
 		err := rows.Scan(&curr_post.ID,&curr_post.Email,&curr_post.Content,&curr_post.Views,&curr_post.CreatedAt)
@@ -52,7 +52,7 @@ func fetchTopPosts(db *sql.DB,limit int)([]post,error){
 		fmt.Println("Error in query execution: ",err)
 		return []post{},err
 	}
-	var posts []post
+	posts := []post{}
 	for rows.Next(){
 		var curr_post post
 		err := rows.Scan(&curr_post.ID,&curr_post.Email,&curr_post.Content,&curr_post.Views,&curr_post.CreatedAt)
