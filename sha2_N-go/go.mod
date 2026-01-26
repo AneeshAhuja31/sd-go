@@ -3,7 +3,7 @@ module sha-go
 go 1.25.5
 
 require (
-	github.com/AneeshAhuja31/sd-go v0.0.0-20260126060310-47e002de9f70 // indirect
+	github.com/AneeshAhuja31/sd-go v0.0.0-20260126193644-601aadca5300 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/lib/pq v1.10.9 // indirect
