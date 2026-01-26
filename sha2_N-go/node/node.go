@@ -16,8 +16,12 @@ type Node struct {
 
 
 
-// func makeNode(slot int)*Node{
-// 	return &Node{
-// 		ID: "node-"+fmt.Sprint(port),
-// 	}
-// }
+func makeNode(port int,slot int,hash uint64,httpaddr *http.Server,db *sql.DB)*Node{
+	return &Node{
+		ID: "node-"+fmt.Sprint(port),
+		slot: slot,
+		hash: hash,
+		httpAddr: httpaddr,
+		db: db,
+	}
+}
