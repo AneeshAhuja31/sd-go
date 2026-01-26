@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func initPQ(host string, port int)*sql.DB{
+func InitPQ(host string, port int)*sql.DB{
 	connStr := "postgres://postgres:pass@" + host + ":" + fmt.Sprint(port) + "/postgres?sslmode=disable"
 	db, err := sql.Open("postgres",connStr)
 	if err!=nil{
