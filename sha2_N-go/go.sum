@@ -8,6 +8,8 @@ github.com/AneeshAhuja31/sd-go v0.0.0-20260126193644-601aadca5300 h1:47DEQpj8HBS
 github.com/AneeshAhuja31/sd-go v0.0.0-20260126193644-601aadca5300/go.mod h1:8kV1C+ZeMrKLgX3yNxoAsp+KA62PP8rxCR6mIj2BmaQ=
 github.com/AneeshAhuja31/sd-go v0.0.0-20260127233438-c38019766e76 h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
 github.com/AneeshAhuja31/sd-go v0.0.0-20260127233438-c38019766e76/go.mod h1:8kV1C+ZeMrKLgX3yNxoAsp+KA62PP8rxCR6mIj2BmaQ=
+github.com/AneeshAhuja31/sd-go v0.0.0-20260128001628-da5eca7a7b3c h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+github.com/AneeshAhuja31/sd-go v0.0.0-20260128001628-da5eca7a7b3c/go.mod h1:8kV1C+ZeMrKLgX3yNxoAsp+KA62PP8rxCR6mIj2BmaQ=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=
 github.com/cespare/xxhash/v2 v2.3.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f h1:lO4WD4F/rVNCu3HqELle0jiPLLBs70cWOduZpkS1E78=
