@@ -8,21 +8,18 @@ import (
 func FindNode(key string, shaRing Ring, n int)*node.Node{
 	keyHash := hash.Hash(key)
 	keySlot := hash.GetSlot(keyHash,n)
-	// var selectedNode node.Node
 	var firstNode *node.Node
-	if len(shaRing.Ring) > 0{
-		for _,currNode := range(shaRing.Ring){
-			if currNode.DB == nil{
-				continue
-			}
-			if firstNode == nil{
-				firstNode = &currNode
-			}
-			if currNode.Slot > keySlot{
-				return &currNode
-			}
-			return &currNode
+
+	for i := range shaRing.Ring {
+		if shaRing.Ring[i].DB == nil {
+			continue
+		}
+		if firstNode == nil {
+			firstNode = &shaRing.Ring[i]
+		}
+		if shaRing.Ring[i].Slot > keySlot {
+			return &shaRing.Ring[i]
 		}
 	}
-	return firstNode
+	return firstNode //wrap around first valid node
 }
