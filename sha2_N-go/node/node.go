@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"database/sql"
 	"fmt"
-	"sha-go/ring"
+	"sha-go/hash"
 )
 
 type Node struct {
@@ -19,12 +19,12 @@ type Node struct {
 
 func MakeNode(port int,httpaddr *http.Server,db *sql.DB,n int)*Node{
 	id := "node-"+fmt.Sprint(port)
-	hash := ring.Hash(id)
-	slot := ring.GetSlot(hash,n)
+	hashVal := hash.Hash(id)
+	slot := hash.GetSlot(hashVal,n)
 	return &Node{
 		ID: id,
 		Slot: slot,
-		Hash: hash,
+		Hash: hashVal,
 		HttpServer: httpaddr,
 		DB: db,
 	}

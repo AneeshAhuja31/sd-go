@@ -1,14 +1,13 @@
 package ring
 
 import (
-	"fmt"
-	"log"
+	"sha-go/hash"
 	"sha-go/node"
 )
 
 func FindNode(key string, shaRing Ring, n int)*node.Node{
-	keyHash := Hash(key)
-	keySlot := GetSlot(keyHash,n)
+	keyHash := hash.Hash(key)
+	keySlot := hash.GetSlot(keyHash,n)
 	// var selectedNode node.Node
 	var firstNode *node.Node
 	if len(shaRing.Ring) > 0{

@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"sha-go/hash"
 	"sha-go/node"
 	"sha-go/ring"
 )
@@ -106,7 +107,7 @@ func (srv *Server) PutHandler(w http.ResponseWriter, r *http.Request) {
 	targetNode := ring.FindNode(key, *srv.Ring, 16)
 
 	if targetNode.ID == srv.Node.ID {
-		keyHash := ring.Hash(key)
+		keyHash := hash.Hash(key)
 		insertQuery := fmt.Sprintf("INSERT INTO files_%d (key, value, hash) VALUES ($1, $2, $3) ON CONFLICT (key) DO UPDATE SET value = $2, hash = $3", srv.Node.Slot)
 
 		_, err := srv.Node.DB.Exec(insertQuery, key, value, keyHash)

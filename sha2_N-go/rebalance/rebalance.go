@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"sha-go/config"
+	"sha-go/hash"
 	"sha-go/node"
-	"sha-go/ring"
 )
 
 func BalanceAddition(newNode *node.Node, rightNode *node.Node, n int) {
@@ -26,7 +26,7 @@ func BalanceAddition(newNode *node.Node, rightNode *node.Node, n int) {
 			continue
 		}
 
-		recordSlot := ring.GetSlot(record.Hash,n)
+		recordSlot := hash.GetSlot(record.Hash,n)
 		if recordSlot <= newNode.Slot{
 			recordsToMove = append(recordsToMove, record)
 		}
