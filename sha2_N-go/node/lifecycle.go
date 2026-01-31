@@ -8,13 +8,13 @@ import (
 	"sha-go/config"
 )
 
-func InitNode(port int, dbHost string, dbPort int, n int) (*Node, error) {
+func InitNode(port int, dbHost string, dbPort int,n int) (*Node, error) {
 	db := config.InitPQ(dbHost, dbPort)
 	dbName := fmt.Sprintf("node_%d", port)
-	dbCreationStatement := fmt.Sprintf("CREATE DATABASE %s", dbName)
-	_, err := db.Exec(dbCreationStatement)
+	dbCreationStatement := fmt.Sprintf("CREATE DATABASE %s",dbName)
+	_,err := db.Exec(dbCreationStatement)
 	if err != nil {
-		log.Printf("Database %s might already exist: %v", dbName, err)
+		log.Printf("Database %s already exist: %v", dbName, err)
 	}
 	db.Close()
 
