@@ -1,5 +1,7 @@
 package masker
 
+import "unicode"
+
 type TrieNode struct{
 	children map[rune]*TrieNode
 	isEnd bool
@@ -8,6 +10,7 @@ type TrieNode struct{
 func Insert(root *TrieNode,word string){
 	node := root
 	for _,ch := range word{
+		ch = unicode.ToLower(ch)
 		if node.children[ch] == nil {
 			node.children[ch] = &TrieNode{
 				children: make(map[rune]*TrieNode),

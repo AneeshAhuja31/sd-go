@@ -1,5 +1,7 @@
 package masker
 
+import "unicode"
+
 func MaskText(text string, root *TrieNode) string {
 	runes := []rune(text)
 	n := len(runes)
@@ -8,7 +10,7 @@ func MaskText(text string, root *TrieNode) string {
 		node := root
 		j := i
 		for j < n {
-			next := node.children[runes[j]]
+			next := node.children[unicode.ToLower(runes[j])]
 			if next == nil {
 				break
 			}
