@@ -10,7 +10,9 @@
     <button onclick="joinRoom()">Join Room</button>
     <button onclick="leaveRoom()">Leave Room</button><br><br>
     <input id="msgInput" placeholder="Message" onkeydown="if(event.key==='Enter') sendMessage()" />
-    <button onclick="sendMessage()">Send</button><br><br>
+    <button onclick="sendMessage()">Send</button> <br><br>
+    <input id="abuseInput" placeholder="New abuse word" />
+    <button onclick="addAbuse()">Add Abuse Word</button><br><br>
     <div id="messages" style="height:400px;overflow-y:auto;border:1px solid gray;padding:4px"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.min.js"></script>
@@ -62,9 +64,23 @@
 
     function sendMessage() {
         const msg = document.getElementById("msgInput").value.trim();
-        if (!currentRoom || !msg) return;
+        if (!msg) return;
+        if (!currentRoom) { log("-- join a room first --"); return; }
         socket.emit("send_msg", currentRoom, msg);
         document.getElementById("msgInput").value = "";
+    }
+
+    function addAbuse() {
+        const word = document.getElementById("abuseInput").value.trim();
+        if (!word) return;
+        fetch("/add-abuse", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({abuse: word})
+        }).then(r => r.json()).then(data => {
+            log("-- added abuse word: " + data.word + " --");
+            document.getElementById("abuseInput").value = "";
+        }).catch(() => log("-- failed to add abuse word --"));
     }
 </script>
 </body>

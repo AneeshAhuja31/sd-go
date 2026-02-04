@@ -5,7 +5,8 @@ import (
 	"log"
 	"net/http"
 	"time"
-
+	"encoding/json"
+	"os"
 	"github.com/googollee/go-socket.io"
 	"github.com/googollee/go-socket.io/engineio"
 	"github.com/googollee/go-socket.io/engineio/transport"
@@ -84,7 +85,41 @@ func main(){
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "index.html")
 	})
-	
+	type AddAbuseReq struct{
+		Abuse string `json:"abuse"`
+	}
+	http.HandleFunc("/add-abuse", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		defer r.Body.Close()
+		r.Body = http.MaxBytesReader(w, r.Body, 1048576)
+		decoder := json.NewDecoder(r.Body)
+		decoder.DisallowUnknownFields()
+		var req AddAbuseReq
+		err := decoder.Decode(&req)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		abuse := req.Abuse
+		if abuse == "" {
+			http.Error(w, "abuse field is required", http.StatusBadRequest)
+			return
+		}
+		masker.UpdateTrie(AbuseTrie, abuse)
+		f, err := os.OpenFile("abuse_words.txt", os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			log.Println("Failed to persist abuse word:", err)
+		} else {
+			f.WriteString("\n" + abuse)
+			f.Close()
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{"status": "added", "word": abuse})
+	})
 	log.Println("Server started on :9000")
 	log.Fatal(http.ListenAndServe(":9000",nil))
 }
