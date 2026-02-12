@@ -7,13 +7,13 @@ import (
 )
 
 
-func InitRedis(host string, port int)(*redis.Client,context.Context){
-	ctx := context.Background()
+func InitRedis(ctx context.Context, host string, port int)(*redis.Client,error){
 	rdb := redis.NewClient(&redis.Options{
 		Addr: host + ":" + fmt.Sprint(port),
 		Password: "",
 		DB: 0,
 	})
-	return rdb,ctx
+	
+	return rdb, nil
 }
 
